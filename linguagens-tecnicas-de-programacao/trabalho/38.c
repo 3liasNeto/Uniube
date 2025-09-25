@@ -2,13 +2,13 @@
 #include <ctype.h>
 
 int main() {
-    double consumo;
-    double tarifa_base;
+    unsigned long consumo;
+    float tarifa_base;
     char bandeira, baixa_renda;
     double valor_base, adicional = 0.0, total, desconto = 0.0;
 
     printf("Consumo (kWh): ");
-    scanf("%lf", &consumo);
+    scanf("%ld", &consumo);
     
     if (consumo <= 0) {
         printf("Erro: Consumo deve ser maior que zero!\n");
@@ -16,7 +16,7 @@ int main() {
     }
 
     printf("Tarifa base por kWh (R$): ");
-    scanf("%lf", &tarifa_base);  // %lf para double
+    scanf("%f", &tarifa_base);
     
     if (tarifa_base <= 0) {
         printf("Erro: Tarifa deve ser maior que zero!\n");
@@ -57,7 +57,7 @@ int main() {
     }
 
     printf("\n--- Conta de Energia ---\n");
-    printf("Consumo: %.1f kWh\n", consumo);
+    printf("Consumo: %.ld kWh\n", consumo);
     printf("Bandeira: %c\n", bandeira);
     printf("Valor base: R$ %.2f\n", valor_base);
     printf("Adicional bandeira: R$ %.2f\n", adicional);

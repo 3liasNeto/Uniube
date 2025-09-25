@@ -4,7 +4,7 @@ int main() {
     // * Cubo
     int lado;
 
-    printf("Lado: ");
+    printf("Lado do Cubo: ");
     scanf("%d", &lado);
     int volume = lado * lado * lado;
     printf("Volume do Cubo: %d\n", volume);

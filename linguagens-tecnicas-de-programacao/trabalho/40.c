@@ -5,8 +5,12 @@ int main() {
     unsigned int ano;
     int bissexto = 0, valido = 1, dias_no_mes;
 
+    printf("Informe a data (DD MM AAAA): ");
+    printf("Dia: ");
     scanf("%hu", &dia);
+    printf("Mês: ");
     scanf("%hu", &mes);
+    printf("Ano: ");
     scanf("%u", &ano);
 
     if ((ano % 400 == 0) || (ano % 4 == 0 && ano % 100 != 0)) {
