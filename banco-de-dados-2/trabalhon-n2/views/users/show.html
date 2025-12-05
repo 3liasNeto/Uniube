@@ -1,0 +1,169 @@
+{{define "user-show"}}
+<div class="p-4 lg:p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="mb-6 flex items-center gap-2 text-sm">
+            <a href="/users" class="text-muted-foreground transition-colors hover:text-primary">Usuários</a>
+            <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="font-medium">{{.User.Username}}</span>
+        </nav>
+
+        <article class="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
+            <!-- Profile Header -->
+            <header class="bg-gradient-to-br from-primary via-primary/90 to-accent p-8 lg:p-12 text-center">
+                <div class="flex justify-center mb-4">
+                    <div class="w-20 h-20 lg:w-24 lg:h-24 bg-primary-foreground/20 backdrop-blur-sm rounded-full flex items-center justify-center ring-4 ring-primary-foreground/30" aria-hidden="true">
+                        <span class="text-4xl lg:text-5xl font-bold text-primary-foreground">{{slice .User.Username 0 1}}</span>
+                    </div>
+                </div>
+                <h1 class="text-3xl lg:text-4xl font-bold text-primary-foreground mb-2">{{.User.Username}}</h1>
+                <p class="text-primary-foreground/80 text-lg">
+                    {{if or .User.FirstName .User.LastName}}
+                        {{.User.FirstName}} {{.User.LastName}}
+                    {{else}}
+                        Usuário do sistema
+                    {{end}}
+                </p>
+            </header>
+
+            <!-- User Details -->
+            <div class="p-6 lg:p-8">
+                <h2 class="text-xl lg:text-2xl font-bold mb-6 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Informações do Usuário</span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-10">
+                    <!-- Username -->
+                    <div class="bg-gradient-to-br from-muted/50 to-background p-8 rounded-xl border-2 border-border">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0" aria-hidden="true">
+                                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-muted-foreground mb-1">Username</p>
+                                <p class="text-xl font-bold break-words">{{.User.Username}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="bg-gradient-to-br from-muted/50 to-background p-8 rounded-xl border-2 border-border">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0" aria-hidden="true">
+                                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-muted-foreground mb-1">Email</p>
+                                <p class="text-xl font-semibold break-words">{{.User.Email}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- First Name -->
+                    <div class="bg-gradient-to-br from-muted/50 to-background p-8 rounded-xl border-2 border-border">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center shrink-0" aria-hidden="true">
+                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-muted-foreground mb-1">Primeiro Nome</p>
+                                <p class="text-xl font-semibold">
+                                    {{if .User.FirstName}}
+                                        {{.User.FirstName}}
+                                    {{else}}
+                                        <span class="text-muted-foreground italic text-base">Não informado</span>
+                                    {{end}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="bg-gradient-to-br from-muted/50 to-background p-8 rounded-xl border-2 border-border">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center shrink-0" aria-hidden="true">
+                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-muted-foreground mb-1">Sobrenome</p>
+                                <p class="text-xl font-semibold">
+                                    {{if .User.LastName}}
+                                        {{.User.LastName}}
+                                    {{else}}
+                                        <span class="text-muted-foreground italic text-base">Não informado</span>
+                                    {{end}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metadata -->
+                <section class="bg-muted/30 rounded-xl p-8 mb-8 border-2 border-border">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Metadados</span>
+                    </h3>
+                    <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <dt class="text-xs font-medium text-muted-foreground mb-1 uppercase">ID</dt>
+                            <dd class="text-sm font-mono bg-background px-3 py-2 rounded border border-border break-all">{{.User.ID}}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs font-medium text-muted-foreground mb-1 uppercase">Criado em</dt>
+                            <dd class="text-sm font-medium mt-2">{{.User.CreatedAt.Time.Format "02/01/2006 15:04"}}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs font-medium text-muted-foreground mb-1 uppercase">Atualizado em</dt>
+                            <dd class="text-sm font-medium mt-2">{{.User.UpdatedAt.Time.Format "02/01/2006 15:04"}}</dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <!-- Actions -->
+                <footer class="flex flex-wrap gap-3 pt-6 border-t border-border">
+                    <a href="/users/{{.User.ID}}/edit"
+                       class="flex items-center gap-2 px-6 lg:px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold transition-all hover:bg-primary/90 shadow-sm hover:shadow-md">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                        <span>Editar</span>
+                    </a>
+                    <a href="/users"
+                       class="flex items-center gap-2 px-6 lg:px-8 py-3 bg-secondary text-secondary-foreground rounded-lg font-semibold transition-all hover:bg-secondary/90">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        <span>Voltar</span>
+                    </a>
+                    <form action="/users/{{.User.ID}}/delete" method="POST" class="ml-auto">
+                        <button type="submit"
+                                class="flex items-center gap-2 px-6 lg:px-8 py-3 bg-destructive text-destructive-foreground rounded-lg font-semibold transition-all hover:bg-destructive/90 shadow-sm"
+                                onclick="return confirm('Tem certeza que deseja deletar o usuário {{.User.Username}}?')">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                            <span>Deletar</span>
+                        </button>
+                    </form>
+                </footer>
+            </div>
+        </article>
+    </div>
+</div>
+{{end}}

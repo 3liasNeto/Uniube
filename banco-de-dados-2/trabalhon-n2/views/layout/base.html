@@ -1,0 +1,147 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}} - App</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" 
+            integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" 
+            crossorigin="anonymous"></script>
+    
+    <style type="text/tailwindcss">
+
+      :root {
+        --background: oklch(0.9551 0 0);
+        --foreground: oklch(0.3211 0 0);
+        --card: oklch(0.9702 0 0);
+        --card-foreground: oklch(0.3211 0 0);
+        --popover: oklch(0.9702 0 0);
+        --popover-foreground: oklch(0.3211 0 0);
+        --primary: oklch(0.4891 0 0);
+        --primary-foreground: oklch(1 0 0);
+        --secondary: oklch(0.9067 0 0);
+        --secondary-foreground: oklch(0.3211 0 0);
+        --muted: oklch(0.8853 0 0);
+        --muted-foreground: oklch(0.5103 0 0);
+        --accent: oklch(0.8078 0 0);
+        --accent-foreground: oklch(0.3211 0 0);
+        --destructive: oklch(0.5594 0.19 25.8625);
+        --destructive-foreground: oklch(1 0 0);
+        --border: oklch(0.8576 0 0);
+        --input: oklch(0.9067 0 0);
+        --ring: oklch(0.4891 0 0);
+        --radius: 0.5rem;
+      }
+
+      .dark {
+        --background: oklch(0.2178 0 0);
+        --foreground: oklch(0.8853 0 0);
+        --card: oklch(0.2435 0 0);
+        --card-foreground: oklch(0.8853 0 0);
+        --primary: oklch(0.7058 0 0);
+        --primary-foreground: oklch(0.2178 0 0);
+        --secondary: oklch(0.3092 0 0);
+        --secondary-foreground: oklch(0.8853 0 0);
+        --muted: oklch(0.285 0 0);
+        --muted-foreground: oklch(0.5999 0 0);
+        --accent: oklch(0.3715 0 0);
+        --accent-foreground: oklch(0.8853 0 0);
+        --destructive: oklch(0.6591 0.153 22.1703);
+        --destructive-foreground: oklch(1 0 0);
+        --border: oklch(0.329 0 0);
+        --input: oklch(0.3092 0 0);
+        --ring: oklch(0.7058 0 0);
+      }
+
+      @theme {
+        --color-background: var(--background);
+        --color-foreground: var(--foreground);
+        --color-card: var(--card);
+        --color-card-foreground: var(--card-foreground);
+        --color-primary: var(--primary);
+        --color-primary-foreground: var(--primary-foreground);
+        --color-secondary: var(--secondary);
+        --color-secondary-foreground: var(--secondary-foreground);
+        --color-muted: var(--muted);
+        --color-muted-foreground: var(--muted-foreground);
+        --color-accent: var(--accent);
+        --color-accent-foreground: var(--accent-foreground);
+        --color-destructive: var(--destructive);
+        --color-destructive-foreground: var(--destructive-foreground);
+        --color-border: var(--border);
+        --color-input: var(--input);
+        --color-ring: var(--ring);
+        --radius-lg: var(--radius);
+        --radius-md: calc(var(--radius) - 2px);
+        --radius-sm: calc(var(--radius) - 4px);
+      }
+    </style>
+</head>
+<body class="bg-background text-foreground min-h-screen">
+    <div class="flex flex-col lg:flex-row">
+        <!-- Sidebar -->
+        <aside class="lg:w-72 bg-card border-b lg:border-r lg:border-b-0 border-border lg:min-h-screen lg:sticky lg:top-0 z-10">
+            <div class="p-6 lg:p-8 border-b border-border">
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
+                        <svg class="w-7 h-7 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Sistema</span>
+                </a>
+            </div>
+
+            <nav class="p-6 lg:p-8">
+                <a href="/users"
+                   class="flex items-center gap-3 px-4 py-3.5 rounded-lg font-medium transition-colors hover:bg-accent group"
+                   aria-label="Gerenciar usuários">
+                    <svg class="w-5 h-5 text-muted-foreground transition-colors group-hover:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    <span>Usuários</span>
+                </a>
+            </nav>
+
+            <div class="p-6 lg:p-8 lg:border-t border-border mt-auto">
+                <a href="/users/new"
+                   class="w-full flex items-center justify-center gap-2 px-5 py-3.5 bg-primary text-primary-foreground rounded-lg font-semibold transition-all hover:bg-primary/90 shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    <span>Novo Usuário</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 min-w-0 p-[1rem]">
+            {{if eq .Template "user-index"}}
+                {{template "user-index" .}}
+            {{else if eq .Template "user-create"}}
+                {{template "user-create" .}}
+            {{else if eq .Template "user-edit"}}
+                {{template "user-edit" .}}
+            {{else if eq .Template "user-show"}}
+                {{template "user-show" .}}
+            {{else}}
+                {{template "content" .}}
+            {{end}}
+        </main>
+    </div>
+</body>
+</html>
+{{end}}
+
+{{define "content"}}
+<div class="p-4 lg:p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-card rounded-lg shadow-sm border border-border p-6">
+            <h1 class="text-3xl font-bold mb-4">{{.Title}}</h1>
+            <p class="text-muted-foreground">Template não encontrado</p>
+        </div>
+    </div>
+</div>
+{{end}}

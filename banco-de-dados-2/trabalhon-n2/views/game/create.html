@@ -1,0 +1,145 @@
+{{define "game-create"}}
+<div class="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 py-8 px-4">
+  <div class="max-w-2xl mx-auto">
+    <!-- Back button -->
+    <a href="/games" class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Back to Rooms
+    </a>
+
+    <!-- Main card -->
+    <div class="bg-card rounded-2xl shadow-2xl border border-border overflow-hidden">
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-primary to-primary/80 p-8 text-primary-foreground">
+        <h1 class="text-3xl font-bold mb-2">Create New Game Room</h1>
+        <p class="text-primary-foreground/80">Set up your game room and invite players to join</p>
+      </div>
+
+      <!-- Form -->
+      <form action="/games" method="POST" class="p-8 space-y-6">
+        {{if .Errors}}
+        <div class="bg-destructive/10 border border-destructive/20 text-destructive rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+              <h3 class="font-semibold mb-1">Please fix the following errors:</h3>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                {{range .Errors}}
+                <li>{{.}}</li>
+                {{end}}
+              </ul>
+            </div>
+          </div>
+        </div>
+        {{end}}
+
+        <!-- Room Name -->
+        <div class="space-y-2">
+          <label for="name" class="block text-sm font-semibold text-foreground">
+            Room Name <span class="text-destructive">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="{{.Name}}"
+            required
+            placeholder="e.g., Epic Trivia Night"
+            class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent text-foreground placeholder:text-muted-foreground transition-all"
+          />
+          <p class="text-xs text-muted-foreground">Choose a catchy name for your game room (min. 3 characters)</p>
+        </div>
+
+        <!-- Host ID (in real app, this would be from session) -->
+        <div class="space-y-2">
+          <label for="host_id" class="block text-sm font-semibold text-foreground">
+            Host Player ID <span class="text-destructive">*</span>
+          </label>
+          <input
+            type="text"
+            id="host_id"
+            name="host_id"
+            required
+            placeholder="00000000-0000-0000-0000-000000000000"
+            class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent text-foreground placeholder:text-muted-foreground font-mono text-sm transition-all"
+          />
+          <p class="text-xs text-muted-foreground">Enter the UUID of the player who will host this room</p>
+        </div>
+
+        <!-- Description -->
+        <div class="space-y-2">
+          <label for="description" class="block text-sm font-semibold text-foreground">
+            Description
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Describe your game room, rules, or what players can expect..."
+            class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent text-foreground placeholder:text-muted-foreground resize-none transition-all"
+          >{{.Description}}</textarea>
+          <p class="text-xs text-muted-foreground">Optional - Help players understand what this room is about</p>
+        </div>
+
+        <!-- Theme -->
+        <div class="space-y-2">
+          <label for="theme" class="block text-sm font-semibold text-foreground">
+            Theme
+          </label>
+          <input
+            type="text"
+            id="theme"
+            name="theme"
+            value="{{.Theme}}"
+            placeholder="e.g., Science, Movies, Sports, General Knowledge"
+            class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent text-foreground placeholder:text-muted-foreground transition-all"
+          />
+          <p class="text-xs text-muted-foreground">Optional - Set a theme for the questions in this room</p>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-border my-6"></div>
+
+        <!-- Action buttons -->
+        <div class="flex gap-4">
+          <a href="/games"
+             class="flex-1 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-semibold text-center hover:bg-secondary/80 transition-all">
+            Cancel
+          </a>
+          <button
+            type="submit"
+            class="flex-1 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Create Room
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Help card -->
+    <div class="mt-6 bg-accent/5 border border-accent/20 rounded-xl p-6">
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 text-accent-foreground flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <div class="text-sm text-accent-foreground">
+          <h3 class="font-semibold mb-2">Quick Tips</h3>
+          <ul class="space-y-1 text-muted-foreground">
+            <li>• Make your room name descriptive and fun!</li>
+            <li>• Add a detailed description to attract the right players</li>
+            <li>• Choose a theme to focus on specific topics</li>
+            <li>• Room will be created with "waiting" status by default</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}
